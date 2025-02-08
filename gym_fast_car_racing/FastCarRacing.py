@@ -657,8 +657,17 @@ class FastCarRacing(gym.Env, EzPickle):
         elif mode == "rgb_array":
             return self._create_image_array(self.surf, (VIDEO_W, VIDEO_H))
         elif mode == "state_pixels":
-            x=self._create_image_array(self.surf, (STATE_W, STATE_H))
-            return self.gs(torch.from_numpy(x.transpose(2, 0, 1))), x[65][48]==self.road_color - 2
+            x = self._create_image_array(self.surf, (STATE_W, STATE_H))  # (96, 96, 3)
+
+            on_track = x[65][48] == self.road_color - 2
+
+            # (C, H, W) format
+            x_tensor = torch.from_numpy(x).permute(2, 0, 1)  # (3, 96, 96)
+
+            # grayscale
+            grayscale_img = self.gs(x_tensor)  # (1, 96, 96)
+
+            return grayscale_img.numpy().transpose(1, 2, 0), on_track
         else:
             return self.isopen
 
