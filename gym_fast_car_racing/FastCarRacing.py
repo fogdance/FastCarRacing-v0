@@ -7,7 +7,7 @@ from torchvision.transforms import Grayscale
 
 import gymnasium as gym
 from gymnasium import spaces
-from .car_dynamics_4wd import Car
+from car_dynamics_4wd import Car
 from gymnasium.error import DependencyNotInstalled, InvalidAction
 from gymnasium.utils import EzPickle
 import torch
@@ -834,7 +834,7 @@ if __name__ == "__main__":
             if event.type == pygame.QUIT:
                 quit = True
 
-    env = CarRacing(render_mode="human")
+    env = FastCarRacing(render_mode="human",continuous=True)
 
     quit = False
     while not quit:

@@ -1,4 +1,6 @@
 # -*- coding: utf-8 -*-
+import os, sys; sys.path.append(os.path.dirname(os.path.realpath(__file__)))
+
 """
 Created on Wed Aug  9 12:36:38 2023
 
